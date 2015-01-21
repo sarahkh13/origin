@@ -1,0 +1,692 @@
+Last login: Mon Jan 19 14:19:11 on ttys000
+Sarah-Helmans-MacBook-Pro:~ sarahhelman$ cd MyDataScienceToolbox
+Sarah-Helmans-MacBook-Pro:MyDataScienceToolbox sarahhelman$ vagrant ssh
+Welcome to Ubuntu 14.04 LTS (GNU/Linux 3.13.0-24-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+Last login: Mon Jan 19 22:19:47 2015 from 10.0.2.2
+vagrant@data-science-toolbox:~$ git help
+usage: git [--version] [--help] [-C <path>] [-c name=value]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+The most commonly used git commands are:
+   add        Add file contents to the index
+   bisect     Find by binary search the change that introduced a bug
+   branch     List, create, or delete branches
+   checkout   Checkout a branch or paths to the working tree
+   clone      Clone a repository into a new directory
+   commit     Record changes to the repository
+   diff       Show changes between commits, commit and working tree, etc
+   fetch      Download objects and refs from another repository
+   grep       Print lines matching a pattern
+   init       Create an empty Git repository or reinitialize an existing one
+   log        Show commit logs
+   merge      Join two or more development histories together
+   mv         Move or rename a file, a directory, or a symlink
+   pull       Fetch from and integrate with another repository or a local branch
+   push       Update remote refs along with associated objects
+   rebase     Forward-port local commits to the updated upstream head
+   reset      Reset current HEAD to the specified state
+   rm         Remove files from the working tree and from the index
+   show       Show various types of objects
+   status     Show the working tree status
+   tag        Create, list, delete or verify a tag object signed with GPG
+
+'git help -a' and 'git help -g' lists available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+vagrant@data-science-toolbox:~$ git man
+git: 'man' is not a git command. See 'git --help'.
+
+Did you mean this?
+	am
+vagrant@data-science-toolbox:~$ git man
+git: 'man' is not a git command. See 'git --help'.
+
+Did you mean this?
+	am
+vagrant@data-science-toolbox:~$ man git
+vagrant@data-science-toolbox:~$ git config
+usage: git config [options]
+
+Config file location
+    --global              use global config file
+    --system              use system config file
+    --local               use repository config file
+    -f, --file <file>     use given config file
+    --blob <blob-id>      read config from given blob object
+
+Action
+    --get                 get value: name [value-regex]
+    --get-all             get all values: key [value-regex]
+    --get-regexp          get values for regexp: name-regex [value-regex]
+    --get-urlmatch        get value specific for the URL: section[.var] URL
+    --replace-all         replace all matching variables: name value [value_regex]
+    --add                 add a new variable: name value
+    --unset               remove a variable: name [value-regex]
+    --unset-all           remove all matches: name [value-regex]
+    --rename-section      rename section: old-name new-name
+    --remove-section      remove a section: name
+    -l, --list            list all
+    -e, --edit            open an editor
+    --get-color <slot>    find the color configured: [default]
+    --get-colorbool <slot>
+                          find the color setting: [stdout-is-tty]
+
+Type
+    --bool                value is "true" or "false"
+    --int                 value is decimal number
+    --bool-or-int         value is --bool or --int
+    --path                value is a path (file or directory name)
+
+Other
+    -z, --null            terminate values with NUL byte
+    --includes            respect include directives on lookup
+
+vagrant@data-science-toolbox:~$ nano
+vagrant@data-science-toolbox:~$ git config --global user.name 'Sarah Helman'
+vagrant@data-science-toolbox:~$ git config --global user.email 'sarahkh@ucla.edu'
+vagrant@data-science-toolbox:~$ git config --global core.editor 'nano'
+vagrant@data-science-toolbox:~$ mkdir starting-git
+vagrant@data-science-toolbox:~$ cd starting-git
+vagrant@data-science-toolbox:~/starting-git$ git init
+Initialized empty Git repository in /home/vagrant/starting-git/.git/
+vagrant@data-science-toolbox:~/starting-git$ ls -a
+.  ..  .git
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch master
+
+Initial commit
+
+nothing to commit (create/copy files and use "git add" to track)
+vagrant@data-science-toolbox:~/starting-git$ nano README.txt
+vagrant@data-science-toolbox:~/starting-git$ nano README.txt
+vagrant@data-science-toolbox:~/starting-git$ ls
+README.txt
+vagrant@data-science-toolbox:~/starting-git$ git add NEWFILE.txt
+fatal: pathspec 'NEWFILE.txt' did not match any files
+vagrant@data-science-toolbox:~/starting-git$ ls
+README.txt
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	README.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+vagrant@data-science-toolbox:~/starting-git$ git add README.txt
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+	new file:   README.txt
+
+vagrant@data-science-toolbox:~/starting-git$ git commit
+Aborting commit due to empty commit message.
+vagrant@data-science-toolbox:~/starting-git$ git config --global --list
+user.name=Sarah Helman
+user.email=sarahkh@ucla.edu
+core.editor=nano
+vagrant@data-science-toolbox:~/starting-git$ git commit
+[master (root-commit) 6b2b846] Add README.TXT
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.txt
+vagrant@data-science-toolbox:~/starting-git$ git log 
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch master
+nothing to commit, working directory clean
+vagrant@data-science-toolbox:~/starting-git$ nano README.txt
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   README.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+vagrant@data-science-toolbox:~/starting-git$ git add README.txt
+vagrant@data-science-toolbox:~/starting-git$ ls
+README.txt
+vagrant@data-science-toolbox:~/starting-git$ git commit README.txt
+[master f06dbd1] Add another line of info to README.TXT
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch master
+nothing to commit, working directory clean
+vagrant@data-science-toolbox:~/starting-git$ git log 
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+vagrant@data-science-toolbox:~/starting-git$ git log
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+vagrant@data-science-toolbox:~/starting-git$ ls
+README.txt
+vagrant@data-science-toolbox:~/starting-git$ rm README.txt
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	deleted:    README.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+vagrant@data-science-toolbox:~/starting-git$ git checkout -- README.txt
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch master
+nothing to commit, working directory clean
+vagrant@data-science-toolbox:~/starting-git$ git log
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+vagrant@data-science-toolbox:~/starting-git$ ls
+README.txt
+vagrant@data-science-toolbox:~/starting-git$ git branch testing
+vagrant@data-science-toolbox:~/starting-git$ git checkout testing
+Switched to branch 'testing'
+vagrant@data-science-toolbox:~/starting-git$ git branch 
+  master
+* testing
+vagrant@data-science-toolbox:~/starting-git$ git checkout master
+Switched to branch 'master'
+vagrant@data-science-toolbox:~/starting-git$ ls
+README.txt
+vagrant@data-science-toolbox:~/starting-git$ git branch 
+* master
+  testing
+vagrant@data-science-toolbox:~/starting-git$ git checkout testing
+Switched to branch 'testing'
+vagrant@data-science-toolbox:~/starting-git$ git branch 
+  master
+* testing
+vagrant@data-science-toolbox:~/starting-git$ nano teapot.txt
+vagrant@data-science-toolbox:~/starting-git$ ls
+README.txt  teapot.txt
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch testing
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	teapot.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+vagrant@data-science-toolbox:~/starting-git$ git add teapot.txt
+vagrant@data-science-toolbox:~/starting-git$ git commit teapot.txt
+[testing 85fab60] Add ciritical teapot rhymes
+ 1 file changed, 2 insertions(+)
+ create mode 100644 teapot.txt
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch testing
+nothing to commit, working directory clean
+vagrant@data-science-toolbox:~/starting-git$ git log
+commit 85fab605f8acd33491985a3a337f54a29e5d6c69
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:01:19 2015 +0000
+
+    Add ciritical teapot rhymes
+
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+vagrant@data-science-toolbox:~/starting-git$ git help log
+vagrant@data-science-toolbox:~/starting-git$ nano teapot.txt
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch testing
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   teapot.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+vagrant@data-science-toolbox:~/starting-git$ git add teapot.txt
+vagrant@data-science-toolbox:~/starting-git$ git commit teapot.txt
+[testing cd063f1] Add details of file name teapot.txt
+ 1 file changed, 2 insertions(+)
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch testing
+nothing to commit, working directory clean
+vagrant@data-science-toolbox:~/starting-git$ git branch
+  master
+* testing
+vagrant@data-science-toolbox:~/starting-git$ git checkout master
+Switched to branch 'master'
+vagrant@data-science-toolbox:~/starting-git$ git branch
+* master
+  testing
+vagrant@data-science-toolbox:~/starting-git$ git log
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+...skipping...
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+vagrant@data-science-toolbox:~/starting-git$ git log
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+vagrant@data-science-toolbox:~/starting-git$ nano README.txt
+vagrant@data-science-toolbox:~/starting-git$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   README.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+vagrant@data-science-toolbox:~/starting-git$ git add 
+Nothing specified, nothing added.
+Maybe you wanted to say 'git add .'?
+vagrant@data-science-toolbox:~/starting-git$ git add README.txt
+vagrant@data-science-toolbox:~/starting-git$ git commit README.txt
+[master 88c7180] Include teapot info in README.txt
+ 1 file changed, 2 insertions(+)
+vagrant@data-science-toolbox:~/starting-git$ git log
+commit 88c71800fe0c16acdabef59045ae7dd9e03c213b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:05:58 2015 +0000
+
+    Include teapot info in README.txt
+
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+vagrant@data-science-toolbox:~/starting-git$ git branch
+* master
+  testing
+vagrant@data-science-toolbox:~/starting-git$ git checkout 
+vagrant@data-science-toolbox:~/starting-git$ git checkout testing
+Switched to branch 'testing'
+vagrant@data-science-toolbox:~/starting-git$ git checkout
+vagrant@data-science-toolbox:~/starting-git$ git branch
+  master
+* testing
+vagrant@data-science-toolbox:~/starting-git$ git log
+commit cd063f1905085e45b073acf0b2fb1271d5c0bf69
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:03:45 2015 +0000
+
+    Add details of file name teapot.txt
+
+commit 85fab605f8acd33491985a3a337f54a29e5d6c69
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:01:19 2015 +0000
+
+    Add ciritical teapot rhymes
+
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+vagrant@data-science-toolbox:~/starting-git$ git checkout master
+Switched to branch 'master'
+vagrant@data-science-toolbox:~/starting-git$ git log
+commit 88c71800fe0c16acdabef59045ae7dd9e03c213b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:05:58 2015 +0000
+
+    Include teapot info in README.txt
+
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+vagrant@data-science-toolbox:~/starting-git$ git log
+commit 88c71800fe0c16acdabef59045ae7dd9e03c213b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:05:58 2015 +0000
+
+    Include teapot info in README.txt
+
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+vagrant@data-science-toolbox:~/starting-git$ git branch 
+* master
+  testing
+vagrant@data-science-toolbox:~/starting-git$ ls
+README.txt
+vagrant@data-science-toolbox:~/starting-git$ git checkout testing
+Switched to branch 'testing'
+vagrant@data-science-toolbox:~/starting-git$ ls
+README.txt  teapot.txt
+vagrant@data-science-toolbox:~/starting-git$ git checkout master
+Switched to branch 'master'
+vagrant@data-science-toolbox:~/starting-git$ git branch 
+* master
+  testing
+vagrant@data-science-toolbox:~/starting-git$ git merge testing
+Merge made by the 'recursive' strategy.
+ teapot.txt | 4 ++++
+ 1 file changed, 4 insertions(+)
+ create mode 100644 teapot.txt
+vagrant@data-science-toolbox:~/starting-git$ ls
+README.txt  teapot.txt
+vagrant@data-science-toolbox:~/starting-git$ git branch
+* master
+  testing
+vagrant@data-science-toolbox:~/starting-git$ git log 
+commit 329ace8b708a85bd2b0f574dfc44649eca49bb6e
+Merge: 88c7180 cd063f1
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:13:51 2015 +0000
+
+    Merge branch 'testing'
+    
+    Enter more info if you need it
+
+commit 88c71800fe0c16acdabef59045ae7dd9e03c213b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:05:58 2015 +0000
+
+    Include teapot info in README.txt
+
+commit cd063f1905085e45b073acf0b2fb1271d5c0bf69
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:03:45 2015 +0000
+
+    Add details of file name teapot.txt
+
+commit 85fab605f8acd33491985a3a337f54a29e5d6c69
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:01:19 2015 +0000
+
+    Add ciritical teapot rhymes
+
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+vagrant@data-science-toolbox:~/starting-git$ git log
+commit 329ace8b708a85bd2b0f574dfc44649eca49bb6e
+Merge: 88c7180 cd063f1
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:13:51 2015 +0000
+
+    Merge branch 'testing'
+    
+    Enter more info if you need it
+
+commit 88c71800fe0c16acdabef59045ae7dd9e03c213b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:05:58 2015 +0000
+
+    Include teapot info in README.txt
+
+commit cd063f1905085e45b073acf0b2fb1271d5c0bf69
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:03:45 2015 +0000
+
+    Add details of file name teapot.txt
+
+commit 85fab605f8acd33491985a3a337f54a29e5d6c69
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 17:01:19 2015 +0000
+
+    Add ciritical teapot rhymes
+
+commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:45:32 2015 +0000
+
+    Add another line of info to README.TXT
+
+commit 6b2b846778fa31ca7f68e937483331fdb8df854b
+Author: Sarah Helman <sarahkh@ucla.edu>
+Date:   Tue Jan 20 16:31:23 2015 +0000
+
+    Add README.TXT
+    
+    If you need more detail, type for text here in addition to above imperative comma
+    
+    Can add as much or as little as you like. But above line must be 50 characters
+vagrant@data-science-toolbox:~/starting-git$ git log --graph
+*   commit 329ace8b708a85bd2b0f574dfc44649eca49bb6e
+|\  Merge: 88c7180 cd063f1
+| | Author: Sarah Helman <sarahkh@ucla.edu>
+| | Date:   Tue Jan 20 17:13:51 2015 +0000
+| | 
+| |     Merge branch 'testing'
+| |     
+| |     Enter more info if you need it
+| |   
+| * commit cd063f1905085e45b073acf0b2fb1271d5c0bf69
+| | Author: Sarah Helman <sarahkh@ucla.edu>
+| | Date:   Tue Jan 20 17:03:45 2015 +0000
+| | 
+| |     Add details of file name teapot.txt
+| |   
+| * commit 85fab605f8acd33491985a3a337f54a29e5d6c69
+| | Author: Sarah Helman <sarahkh@ucla.edu>
+| | Date:   Tue Jan 20 17:01:19 2015 +0000
+| | 
+| |     Add ciritical teapot rhymes
+| |   
+* | commit 88c71800fe0c16acdabef59045ae7dd9e03c213b
+|/  Author: Sarah Helman <sarahkh@ucla.edu>
+|   Date:   Tue Jan 20 17:05:58 2015 +0000
+|   
+|       Include teapot info in README.txt
+|  
+* commit f06dbd113243c6009854ecd27321a7ebc4e2fd01
+| Author: Sarah Helman <sarahkh@ucla.edu>
+| Date:   Tue Jan 20 16:45:32 2015 +0000
+| 
+vagrant@data-science-toolbox:~/starting-git$ git remote add origin https://github.com/sarahkh13/origin.git
+vagrant@data-science-toolbox:~/starting-git$ git push -u origin master
+ls
+Username for 'https://github.com': Password for 'https://ls@github.com': 
+vagrant@data-science-toolbox:~/starting-git$ git push -u origin master
+Username for 'https://github.com': sarahkh13
+Password for 'https://sarahkh13@github.com': 
+vagrant@data-science-toolbox:~/starting-git$ git push -u origin master
+Username for 'https://github.com': sarahkh
+Password for 'https://sarahkh@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/sarahkh13/origin.git/'
+vagrant@data-science-toolbox:~/starting-git$ git remote add origin https://github.com/sarahkh13/origin.git
+fatal: remote origin already exists.
+vagrant@data-science-toolbox:~/starting-git$ git push -u origin master
+Username for 'https://github.com': sarahkh13
+Password for 'https://sarahkh13@github.com': 
+Counting objects: 17, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (13/13), done.
+Writing objects: 100% (17/17), 1.76 KiB | 0 bytes/s, done.
+Total 17 (delta 2), reused 0 (delta 0)
+To https://github.com/sarahkh13/origin.git
+ * [new branch]      master -> master
+Branch master set up to track remote branch master from origin.
+vagrant@data-science-toolbox:~/starting-git$ git pull
+Already up-to-date.
+vagrant@data-science-toolbox:~/starting-git$ cd ~
+vagrant@data-science-toolbox:~$ git clone https://github.com/sarahkh13/origin.git
+Cloning into 'origin'...
+remote: Counting objects: 17, done.
+remote: Compressing objects: 100% (11/11), done.
+remote: Total 17 (delta 2), reused 17 (delta 2)
+Unpacking objects: 100% (17/17), done.
+Checking connectivity... done.
+vagrant@data-science-toolbox:~$ sarahkh13
+sarahkh13: command not found
+vagrant@data-science-toolbox:~$ ls
+10k-common-passwords.txt  notebooks  pcfb_examples.zip    repos
+aaa.txt                   origin     pcfb_examples.zip.1  starting-git
+introscicomp2014          pcfb       regex_files          tmp
+vagrant@data-science-toolbox:~$ git log
+fatal: Not a git repository (or any of the parent directories): .git
+vagrant@data-science-toolbox:~$ git init
+Initialized empty Git repository in /home/vagrant/.git/
+vagrant@data-science-toolbox:~$ 
+vagrant@data-science-toolbox:~$ 
