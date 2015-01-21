@@ -1,0 +1,39 @@
+ls [A-Z]*    
+cp *.sh /tmp
+man pwd
+cd ⇠
+mkdir -p /test1/test2/test3
+cp -r /tmp .
+ls | less
+head -n 24 test.txt » abc.txt
+echo "aaa" > aaa.txt      
+ps -u sallesina
+top
+ls | grep .sh | xargs mv /tmp
+du -sk /home/* | sort -r -n | head -10
+sort -r names.txt
+
+
+#1 lists all files starting with a capital letter
+#2 copy file to new directory
+#3  displays the manual for the pwd command
+#4  change directory to previous directory
+#5  mkdir creates a new directory, 
+-p (path) option tells mkdir to create each directory as required
+command 1st creates Test1 directory, then test 2 subdirectory, then 
+further down test 3 directory
+#6  Recursively copies the temporary directory structure 
+with current dat/time to already existing directory (which you must define)
+Recursively implies it copies all the /tmp subdirectories as well
+#7  Lists all files in the directory and allows you to scroll up & down 
+(essentially pauses the output so you can scroll through and search if needed) 
+#8  Print the first 24 lines of this file
+#9  Copies files to a new branch with a new name. 
+#10  ps -u command lists all of current processes, here specifically under user name sallesina
+#11  Displays top CPU processes- ongoing processor activity in real time
+#12  ls list files, grep searches plain text for lines matching an expression (here .sh)
+xargs mv moves them to /tmp directory
+#13  du estimates file space storage; du -sk is sum of directories (here home/) in kb
+sort -r sorts them in descending order  -n is by numerical value
+head -10 displays the top ten
+#14   Sort file names in descending order.
